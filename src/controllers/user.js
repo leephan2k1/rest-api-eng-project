@@ -1,31 +1,42 @@
 const User = require("../models/User");
 
-const index = (req, res, next) => {
-  User.find({})
-    .then((users) => {
-      return res.status(200).json({
-        users,
-      });
-    })
-    .catch((error) => next(error));
+const index = async (req, res, next) => {
+  const users = await User.find({});
+  return res.status(200).json({ users });
 };
 
-const newUser = (req, res, next) => {
+const newUser = async (req, res, next) => {
   //create object user
   const newUsr = new User(req.body);
-  newUsr
-    .save()
-    .then((usr) => {
-      return res.status(200).json({
-        usr,
-      });
-    })
-    .catch((err) => {
-      next(err);
-    });
+  await newUsr.save();
+  return res.status(201).json({ newUsr });
+};
+
+const getUser = async (req, res, next) => {
+  const { userId } = req.params;
+  const user = await User.findById({ _id: userId });
+  return res.status(200).json({ user });
+};
+
+const replaceUser = async (req, res, next) => {
+  const { userId } = req.params;
+  const newUser = req.body;
+  await User.findByIdAndUpdate(userId, newUser);
+  return res.status(200).json({ success: true });
+};
+
+const updateUser = async (req, res, next) => {
+  const { userId } = req.params;
+  const newUser = req.body;
+  await User.findByIdAndUpdate(userId, newUser);
+  return res.status(200).json({ success: true });
+
 };
 
 module.exports = {
   index,
   newUser,
+  getUser,
+  replaceUser,
+  updateUser,
 };

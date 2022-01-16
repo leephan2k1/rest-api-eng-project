@@ -1,9 +1,11 @@
 const userRoute = require("./user");
 
 function route(app) {
-  app.use("/user", userRoute);
+  const version = "v1";
 
-  app.use("/", (req, res, next) => [
+  app.use(`/${version}/users`, userRoute);
+
+  app.use(`/${version}/`, (req, res, next) => [
     res.status(200).json({
       message: "server ok !",
     }),

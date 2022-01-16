@@ -5,6 +5,7 @@ const app = express();
 const port = app.get("port") || 3000;
 const route = require("./routes");
 const db = require("./configure/db");
+const helmet = require("helmet");
 
 //connect mongodb
 db.connect();
@@ -18,6 +19,8 @@ app.use(
   })
 );
 app.use(express.json());
+//middleware prevent info header
+app.use(helmet());
 
 //route
 route(app);
@@ -30,7 +33,7 @@ app.use((req, res, next) => {
 });
 
 //error handler
-app.use(() => {
+app.use((err, req, res, next) => {
   const error = app.get("env") === "development" ? err : {};
   const status = err.status || 500;
   return res.status(status).json({
