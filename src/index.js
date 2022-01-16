@@ -4,6 +4,10 @@ const logger = require("morgan");
 const app = express();
 const port = app.get("port") || 3000;
 const route = require("./routes");
+const db = require("./configure/db");
+
+//connect mongodb
+db.connect();
 
 //middleware logger
 app.use(logger("dev"));
