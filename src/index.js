@@ -11,6 +11,13 @@ db.connect();
 
 //middleware logger
 app.use(logger("dev"));
+//middleware body-parser
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+app.use(express.json());
 
 //route
 route(app);
