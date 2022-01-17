@@ -1,4 +1,4 @@
-# API basic.
+# API basic using.
 * api.domain.com just is a example. Run at local: localhost:PORT/v1.
 ## User
 ### User Schema:
