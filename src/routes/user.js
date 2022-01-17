@@ -8,6 +8,11 @@ router.route("/:userId")
   .put(UserController.replaceUser) // -> replace a user (new user)
   .patch(UserController.updateUser) // -> update a user (modified field in user)
 
+//v1/users/:userId/decks
+router.route("/:userId/decks")
+  .get(UserController.getUserDecks) // ->
+  .post(UserController.createUserDecks) // ->
+
 //v1/users 
 router.route("/")
   .get(UserController.index) // -> get all users

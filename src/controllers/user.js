@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Deck = require("../models/Deck");
 
 const index = async (req, res, next) => {
   const users = await User.find({});
@@ -30,7 +31,36 @@ const updateUser = async (req, res, next) => {
   const newUser = req.body;
   await User.findByIdAndUpdate(userId, newUser);
   return res.status(200).json({ success: true });
+};
 
+const getUserDecks = async (req, res, next) => {
+  const { userId } = req.params;
+  const thisUser = await User.findById(userId).populate('decks');
+  const decks = thisUser.decks;
+
+  return res.status(200).json({
+    decks,
+    success: true
+  });
+
+};
+
+const createUserDecks = async (req, res, next) => {
+  const { userId } = req.params;
+  const newDeck = new Deck(req.body);
+  const thisUser = await User.findById(userId);
+
+  newDeck.owner = thisUser._id;
+  await newDeck.save();
+  //add new deck to user decks
+  // -> if .push(newDeck) => warning message: maximum call stack...
+  thisUser.decks.push(newDeck._id); 
+  await thisUser.save();
+
+  return res.status(201).json({
+    deck: newDeck,
+    success: true,
+  });
 };
 
 module.exports = {
@@ -39,4 +69,6 @@ module.exports = {
   getUser,
   replaceUser,
   updateUser,
+  getUserDecks,
+  createUserDecks,
 };
