@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Deck = require("../models/Deck");
+
 const index = async (req, res, next) => {
   const users = await User.find({});
   return res.status(200).json({ users });

@@ -1,5 +1,5 @@
 const express = require("express");
-var router = require("express-promise-router")();
+const router = require("express-promise-router")();
 const UserController = require("../controllers/user");
 const {
   validateBody,
