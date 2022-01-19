@@ -10,6 +10,7 @@
     "express": "^4.17.2",
     "express-promise-router": "^4.1.1",
     "helmet": "^5.0.1",
+    "joi": "^17.5.0",
     "mongoose": "^6.1.6"
   },
   "devDependencies": {
