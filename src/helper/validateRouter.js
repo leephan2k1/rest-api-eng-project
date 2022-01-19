@@ -36,6 +36,11 @@ const validateBody = (schema) => {
 };
 
 const schemas = {
+  deckSchema: Joi.object().keys({
+    name: Joi.string().required().min(2),
+    description: Joi.string().required().min(5),
+  }),
+
   idSchema: Joi.object().keys({
     param: Joi.string()
       .regex(/^[0-9A-Fa-f]{24}$/)
@@ -44,6 +49,12 @@ const schemas = {
   userSchema: Joi.object().keys({
     firstName: Joi.string().required().min(1).max(25),
     lastName: Joi.string().required().min(1).max(25),
+    email: Joi.string().email().required(),
+  }),
+
+  userOptionalSchema: Joi.object().keys({
+    firstName: Joi.string().min(1).max(25),
+    lastName: Joi.string().min(1).max(25),
     email: Joi.string().email(),
   }),
 };

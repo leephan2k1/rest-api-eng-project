@@ -14,14 +14,14 @@ router.use("/:userId", validateParams(schemas.idSchema, "userId"));
 router
   .route("/:userId")
   .get(UserController.getUser) // -> get a user
-  .put(UserController.replaceUser) // -> replace a user (new user)
-  .patch(UserController.updateUser); // -> update a user (modified field in user)
+  .put(validateBody(schemas.userSchema), UserController.replaceUser) // -> replace a user (new user)
+  .patch(validateBody(schemas.userOptionalSchema), UserController.updateUser); // -> update a user (modified field in user)
 
 //v1/users/:userId/decks
 router
   .route("/:userId/decks")
   .get(UserController.getUserDecks) // ->
-  .post(UserController.createUserDecks); // ->
+  .post(validateBody(schemas.deckSchema), UserController.createUserDecks); // ->
 
 //v1/users
 router

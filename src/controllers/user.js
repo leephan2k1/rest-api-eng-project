@@ -13,27 +13,27 @@ const newUser = async (req, res, next) => {
 };
 
 const getUser = async (req, res, next) => {
-  const { userId } = req.params;
+  const { userId } = req.verified.params;
   const user = await User.findById({ _id: userId });
   return res.status(200).json({ user });
 };
 
 const replaceUser = async (req, res, next) => {
-  const { userId } = req.params;
-  const newUser = req.body;
+  const { userId } = req.verified.params;
+  const newUser = req.verified.body;
   await User.findByIdAndUpdate(userId, newUser);
   return res.status(200).json({ success: true });
 };
 
 const updateUser = async (req, res, next) => {
-  const { userId } = req.params;
-  const newUser = req.body;
+  const { userId } = req.verified.params;
+  const newUser = req.verified.body;
   await User.findByIdAndUpdate(userId, newUser);
   return res.status(200).json({ success: true });
 };
 
 const getUserDecks = async (req, res, next) => {
-  const { userId } = req.params;
+  const { userId } = req.verified.params;
   const thisUser = await User.findById(userId).populate("decks");
   const decks = thisUser.decks;
 
@@ -44,8 +44,8 @@ const getUserDecks = async (req, res, next) => {
 };
 
 const createUserDecks = async (req, res, next) => {
-  const { userId } = req.params;
-  const newDeck = new Deck(req.body);
+  const { userId } = req.verified.params;
+  const newDeck = new Deck(req.verified.body);
   const thisUser = await User.findById(userId);
 
   newDeck.owner = thisUser._id;
