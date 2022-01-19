@@ -7,7 +7,7 @@ const index = async (req, res, next) => {
 
 const newUser = async (req, res, next) => {
   //create object user
-  const newUsr = new User(req.body);
+  const newUsr = new User(req.verified.body);
   await newUsr.save();
   return res.status(201).json({ newUsr });
 };

@@ -1,7 +1,11 @@
 const express = require("express");
 var router = require("express-promise-router")();
 const UserController = require("../controllers/user");
-const { validateParams, schemas } = require("../helper/validateRouter");
+const {
+  validateBody,
+  validateParams,
+  schemas,
+} = require("../helper/validateRouter");
 
 //Validator for userId
 router.use("/:userId", validateParams(schemas.idSchema, "userId"));
@@ -23,6 +27,6 @@ router
 router
   .route("/")
   .get(UserController.index) // -> get all users
-  .post(UserController.newUser); // -> create a new user
+  .post(validateBody(schemas.userSchema), UserController.newUser); // -> create a new user
 
 module.exports = router;
