@@ -28,19 +28,13 @@ const validateBody = (schema) => {
 
     if (!req.verified) {
       req.verified = {};
-      req.verified.body = validateResult.value;
     }
-
+    req.verified.body = validateResult.value;
     next();
   };
 };
 
 const schemas = {
-  deckSchema: Joi.object().keys({
-    name: Joi.string().required().min(2),
-    description: Joi.string().required().min(5),
-  }),
-
   idSchema: Joi.object().keys({
     param: Joi.string()
       .regex(/^[0-9A-Fa-f]{24}$/)
@@ -59,11 +53,22 @@ const schemas = {
   }),
 
   deckSchema: Joi.object().keys({
+    name: Joi.string().required().min(2),
+    description: Joi.string().required().min(5),
+  }),
+
+  deckSchema: Joi.object().keys({
     name: Joi.string().min(1).required(),
     description: Joi.string().min(5).required(),
     owner: Joi.string()
       .regex(/^[0-9A-Fa-f]{24}$/)
       .required(),
+  }),
+
+  deckOptionalSchema: Joi.object().keys({
+    name: Joi.string().min(1),
+    description: Joi.string().min(5),
+    owner: Joi.string().regex(/^[0-9A-Fa-f]{24}$/),
   }),
 };
 
