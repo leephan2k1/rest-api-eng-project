@@ -6,6 +6,8 @@ const route = require("./routes");
 const db = require("./configure/db");
 const helmet = require("helmet");
 const createError = require("http-errors");
+const logEvents = require("../src/helper/logEvents");
+const { nanoid } = require("nanoid");
 
 //connect mongodb
 db.connect();
@@ -34,6 +36,13 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   const error = app.get("env") === "development" ? err : {};
   const status = err.status || 500;
+  //write log message
+  logEvents(
+    `id:${nanoid(5)} --- ${req.url} --- ${req.method} --- ${JSON.stringify({
+      message: error.message,
+    })}`
+  );
+
   return res.status(status).json({
     status,
     message: error.message,
