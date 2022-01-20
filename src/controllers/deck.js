@@ -104,6 +104,7 @@ const deleteDeck = async (req, res, next) => {
   const { deckId } = req.verified.params;
   const deck = await Deck.findById(deckId);
   const user = await User.findById(deck.owner);
+
   await deck.remove();
   // user.decks = user.decks.filter((e) => e.toString() !== deckId);
   user.decks.pull(deck);

@@ -1,11 +1,11 @@
 const express = require("express");
-const res = require("express/lib/response");
 const logger = require("morgan");
 const app = express();
 const port = app.get("port") || 3000;
 const route = require("./routes");
 const db = require("./configure/db");
 const helmet = require("helmet");
+const createError = require("http-errors");
 
 //connect mongodb
 db.connect();
@@ -27,9 +27,7 @@ route(app);
 
 //catch 404
 app.use((req, res, next) => {
-  const err = new Error("404");
-  err.status = 404;
-  next(err);
+  next(createError(404, "404 not found"));
 });
 
 //error handler
@@ -37,6 +35,7 @@ app.use((err, req, res, next) => {
   const error = app.get("env") === "development" ? err : {};
   const status = err.status || 500;
   return res.status(status).json({
+    status,
     message: error.message,
   });
 });
