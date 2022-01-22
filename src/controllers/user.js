@@ -1,5 +1,7 @@
 const User = require("../models/User");
 const Deck = require("../models/Deck");
+const jwt = require("jsonwebtoken");
+const { JWT_SECRET } = require("../configure/jwt");
 
 const index = async (req, res, next) => {
   const users = await User.find({});
@@ -73,10 +75,36 @@ const signIn = async (req, res, next) => {
     message: "signIn method",
   });
 };
+const encodedToken = (userId) => {
+  return jwt.sign(
+    {
+      iss: "admin",
+      sub: userId,
+      iat: new Date().getTime(),
+      exp: new Date().setDate(new Date().getDate() + 3), //3 days
+    },
+    JWT_SECRET
+  );
+};
 
 const signUp = async (req, res, next) => {
-  res.json({
-    message: "signUp method",
+  const { firstName, lastName, email, password } = req.verified.body;
+
+  //check exist user email
+  const existUser = await User.findOne({ email: email });
+  if (existUser) {
+    return res
+      .status(401)
+      .json({ success: false, message: "user is already registered" });
+  }
+  const newUser = new User({ firstName, lastName, email, password });
+  await newUser.save();
+
+  const token = encodedToken(newUser._id);
+
+  res.setHeader("authorization", token);
+  res.status(201).json({
+    success: true,
   });
 };
 

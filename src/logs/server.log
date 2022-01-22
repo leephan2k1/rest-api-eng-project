@@ -1,0 +1,10 @@
+22-01-2022	23:41:19 --- id:tFQvh --- /v1/users/signup --- POST --- {"message":"Cannot access 'newUser' before initialization"}
+23-01-2022	00:13:05 --- id:Lnku4 --- /v1/users/signup --- POST --- {"message":"secretOrPrivateKey must have a value"}
+23-01-2022	00:16:04 --- id:7vZZe --- /v1/users/signup --- POST --- {"message":"secretOrPrivateKey must have a value"}
+23-01-2022	00:17:51 --- id:qhDcb --- /v1/users/signup --- POST --- {"message":"secretOrPrivateKey must have a value"}
+23-01-2022	00:19:33 --- id:HMs46 --- /v1/users/signup --- POST --- {"message":"secretOrPrivateKey must have a value"}
+23-01-2022	00:21:56 --- id:Bkwej --- /v1/users/signup --- POST --- {"message":"secretOrPrivateKey must have a value"}
+23-01-2022	00:24:19 --- id:O8n6e --- /v1/users/signup --- POST --- {"message":"secretOrPrivateKey must have a value"}
+23-01-2022	00:27:34 --- id:_pLDj --- /v1/users/signup --- POST --- {"message":"secret must be a string or bufferor a KeyObject"}
+23-01-2022	00:29:16 --- id:Xdw81 --- /v1/users/signup --- POST --- {"message":"secret must be a string or bufferor a KeyObject"}
+23-01-2022	00:30:20 --- id:nB5ie --- /v1/users/signup --- POST --- {"message":"secret must be a string or bufferor a KeyObject"}
