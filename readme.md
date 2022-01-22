@@ -98,3 +98,11 @@ api.mydomain.com/v1/decks/:deckId
 ```
 api.mydomain.com/v1/decks/:deckId
 ```
+
+## Todo:
+
+- filters
+- sort
+- random
+- pagination
+- custom joi error message

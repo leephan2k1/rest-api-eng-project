@@ -7,8 +7,21 @@ const {
   schemas,
 } = require("../helper/validateRouter");
 
-//Validator for userId
+// Validator for userId
 router.use("/:userId", validateParams(schemas.idSchema, "userId"));
+
+// v1/users/SignIn
+router
+  .route("/signin")
+  .post(validateBody(schemas.signInSchema), UserController.signIn);
+
+// v1/users/SignUp
+router
+  .route("/signup")
+  .post(validateBody(schemas.signUpSchema), UserController.signUp);
+
+// v1/users/secret
+router.route("/secret").get(UserController.secret);
 
 //v1/users/:userId
 router

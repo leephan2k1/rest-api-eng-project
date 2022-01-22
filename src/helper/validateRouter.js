@@ -2,6 +2,10 @@ const Joi = require("joi");
 
 const validateParams = (schema, name) => {
   return (req, res, next) => {
+    if (["signin", "signup", "secret"].indexOf(req.params[name]) !== -1) {
+      return next();
+    }
+
     const validateResult = schema.validate({
       param: req.params[name],
     });
@@ -35,6 +39,16 @@ const validateBody = (schema) => {
 };
 
 const schemas = {
+  signIpSchema: Joi.object().keys({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).required(),
+  }),
+  signUpSchema: Joi.object().keys({
+    firstName: Joi.string().required().min(1).max(25),
+    lastName: Joi.string().required().min(1).max(25),
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).required(),
+  }),
   idSchema: Joi.object().keys({
     param: Joi.string()
       .regex(/^[0-9A-Fa-f]{24}$/)

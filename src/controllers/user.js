@@ -62,6 +62,24 @@ const createUserDecks = async (req, res, next) => {
   });
 };
 
+const secret = async (req, res, next) => {
+  res.json({
+    message: "secret method",
+  });
+};
+
+const signIn = async (req, res, next) => {
+  res.json({
+    message: "signIn method",
+  });
+};
+
+const signUp = async (req, res, next) => {
+  res.json({
+    message: "signUp method",
+  });
+};
+
 module.exports = {
   index,
   newUser,
@@ -70,4 +88,7 @@ module.exports = {
   updateUser,
   getUserDecks,
   createUserDecks,
+  signIn,
+  signUp,
+  secret,
 };
