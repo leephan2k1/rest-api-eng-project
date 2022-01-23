@@ -15,7 +15,11 @@ router.use("/:userId", validateParams(schemas.idSchema, "userId"));
 // v1/users/SignIn
 router
   .route("/signin")
-  .post(validateBody(schemas.signInSchema), UserController.signIn);
+  .post(
+    validateBody(schemas.signInSchema),
+    passport.authenticate("local", { session: false }),
+    UserController.signIn
+  );
 
 // v1/users/SignUp
 router

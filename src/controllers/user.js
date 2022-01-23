@@ -65,17 +65,11 @@ const createUserDecks = async (req, res, next) => {
 };
 
 const secret = async (req, res, next) => {
-  console.log(">>>> ", req.user);
   res.json({
     resource: true,
   });
 };
 
-const signIn = async (req, res, next) => {
-  res.json({
-    message: "signIn method",
-  });
-};
 const encodedToken = (userId) => {
   return jwt.sign(
     {
@@ -88,6 +82,15 @@ const encodedToken = (userId) => {
   );
 };
 
+const signIn = async (req, res, next) => {
+  const token = encodedToken(req.user._id);
+
+  res.setHeader("Authorization", token);
+  res.status(200).json({
+    success: true,
+  });
+};
+
 const signUp = async (req, res, next) => {
   const { firstName, lastName, email, password } = req.verified.body;
 
@@ -96,7 +99,7 @@ const signUp = async (req, res, next) => {
   if (existUser) {
     return res
       .status(401)
-      .json({ success: false, message: "user is already registered" });
+      .json({ success: false, message: "email is already registered" });
   }
   const newUser = new User({ firstName, lastName, email, password });
   await newUser.save();

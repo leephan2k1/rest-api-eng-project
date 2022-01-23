@@ -39,7 +39,7 @@ const validateBody = (schema) => {
 };
 
 const schemas = {
-  signIpSchema: Joi.object().keys({
+  signInSchema: Joi.object().keys({
     email: Joi.string().email().required(),
     password: Joi.string().min(6).required(),
   }),

@@ -8,3 +8,5 @@
 23-01-2022	00:27:34 --- id:_pLDj --- /v1/users/signup --- POST --- {"message":"secret must be a string or bufferor a KeyObject"}
 23-01-2022	00:29:16 --- id:Xdw81 --- /v1/users/signup --- POST --- {"message":"secret must be a string or bufferor a KeyObject"}
 23-01-2022	00:30:20 --- id:nB5ie --- /v1/users/signup --- POST --- {"message":"secret must be a string or bufferor a KeyObject"}
+23-01-2022	22:15:20 --- id:1GUqn --- /v1/users/signin --- POST --- {"message":"Cannot read properties of undefined (reading 'validate')"}
+23-01-2022	22:19:25 --- id:GBIwU --- /v1/users/signin --- POST --- {"message":"Cannot read properties of undefined (reading 'validate')"}
