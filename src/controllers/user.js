@@ -65,8 +65,9 @@ const createUserDecks = async (req, res, next) => {
 };
 
 const secret = async (req, res, next) => {
+  console.log(">>>> ", req.user);
   res.json({
-    message: "secret method",
+    resource: true,
   });
 };
 
@@ -102,7 +103,7 @@ const signUp = async (req, res, next) => {
 
   const token = encodedToken(newUser._id);
 
-  res.setHeader("authorization", token);
+  res.setHeader("Authorization", token);
   res.status(201).json({
     success: true,
   });

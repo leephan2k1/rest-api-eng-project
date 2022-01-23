@@ -6,6 +6,8 @@ const {
   validateParams,
   schemas,
 } = require("../helper/validateRouter");
+const passport = require("passport");
+require("../middlewares/passport");
 
 // Validator for userId
 router.use("/:userId", validateParams(schemas.idSchema, "userId"));
@@ -21,7 +23,9 @@ router
   .post(validateBody(schemas.signUpSchema), UserController.signUp);
 
 // v1/users/secret
-router.route("/secret").get(UserController.secret);
+router
+  .route("/secret")
+  .get(passport.authenticate("jwt", { session: false }), UserController.secret);
 
 //v1/users/:userId
 router
